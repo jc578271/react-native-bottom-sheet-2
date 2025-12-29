@@ -1,6 +1,6 @@
 import type React from 'react';
-import type { Insets, StyleProp, View, ViewStyle } from 'react-native';
-import type { PanGesture } from 'react-native-gesture-handler';
+import type {Insets, StyleProp, View, ViewStyle} from 'react-native';
+import type {PanGesture} from 'react-native-gesture-handler';
 import type {
   AnimateStyle,
   ReduceMotion,
@@ -15,15 +15,11 @@ import type {
   KEYBOARD_INPUT_MODE,
   SNAP_POINT_TYPE,
 } from '../../constants';
-import type {
-  ContainerLayoutState,
-  GestureEventsHandlersHookType,
-  NullableAccessibilityProps,
-} from '../../types';
-import type { BottomSheetBackdropProps } from '../bottomSheetBackdrop';
-import type { BottomSheetBackgroundProps } from '../bottomSheetBackground';
-import type { BottomSheetFooterProps } from '../bottomSheetFooter';
-import type { BottomSheetHandleProps } from '../bottomSheetHandle';
+import type {ContainerLayoutState, GestureEventsHandlersHookType, NullableAccessibilityProps} from '../../types';
+import type {BottomSheetBackdropProps} from '../bottomSheetBackdrop';
+import type {BottomSheetBackgroundProps} from '../bottomSheetBackground';
+import type {BottomSheetFooterProps} from '../bottomSheetFooter';
+import type {BottomSheetHandleProps} from '../bottomSheetHandle';
 
 export interface BottomSheetProps
   extends BottomSheetAnimationConfigs,
@@ -176,6 +172,15 @@ export interface BottomSheetProps
    * @default false
    */
   enableBlurKeyboardOnGesture?: boolean;
+
+  /**
+   * Keyboard offset value helps to calculate percentage snap points values,
+   * usually comes from `react-native-safe-area-context` hook `useSafeArea`.
+   * @type number
+   * @default 0
+   */
+  keyboardOffset?: number;
+
   /**
    * Defines keyboard input mode for Android only.
    * @link {https://developer.android.com/guide/topics/manifest/activity-element#wsoft}
@@ -201,17 +206,7 @@ export interface BottomSheetProps
    */
   style?: StyleProp<
     AnimateStyle<
-      Omit<
-        ViewStyle,
-        | 'flexDirection'
-        | 'position'
-        | 'top'
-        | 'left'
-        | 'bottom'
-        | 'right'
-        | 'opacity'
-        | 'transform'
-      >
+      Omit<ViewStyle, 'flexDirection' | 'position' | 'top' | 'left' | 'bottom' | 'right' | 'opacity' | 'transform'>
     >
   >;
   /**
@@ -219,9 +214,7 @@ export interface BottomSheetProps
    * @type ViewStyle
    * @default undefined
    */
-  backgroundStyle?: StyleProp<
-    Omit<ViewStyle, 'position' | 'top' | 'left' | 'bottom' | 'right'>
-  >;
+  backgroundStyle?: StyleProp<Omit<ViewStyle, 'position' | 'top' | 'left' | 'bottom' | 'right'>>;
   /**
    * View style to be applied to the handle component.
    * @type ViewStyle
@@ -276,12 +269,7 @@ export interface BottomSheetProps
    *
    * @type (fromIndex: number, toIndex: number, fromPosition: number, toPosition: number) => void;
    */
-  onAnimate?: (
-    fromIndex: number,
-    toIndex: number,
-    fromPosition: number,
-    toPosition: number
-  ) => void;
+  onAnimate?: (fromIndex: number, toIndex: number, fromPosition: number, toPosition: number) => void;
   //#endregion
 
   //#region components
@@ -351,8 +339,6 @@ export type BottomSheetGestureProps = {
   failOffsetY: Parameters<PanGesture['failOffsetY']>[0];
   failOffsetX: Parameters<PanGesture['failOffsetX']>[0];
 
-  simultaneousHandlers: Parameters<
-    PanGesture['simultaneousWithExternalGesture']
-  >[0];
+  simultaneousHandlers: Parameters<PanGesture['simultaneousWithExternalGesture']>[0];
   waitFor: Parameters<PanGesture['requireExternalGestureToFail']>[0];
 };

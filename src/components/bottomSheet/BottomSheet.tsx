@@ -106,6 +106,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(function 
     keyboardBlurBehavior = DEFAULT_KEYBOARD_BLUR_BEHAVIOR,
     android_keyboardInputMode = DEFAULT_KEYBOARD_INPUT_MODE,
     enableBlurKeyboardOnGesture = DEFAULT_ENABLE_BLUR_KEYBOARD_ON_GESTURE,
+    keyboardOffset = 0,
 
     // layout
     containerLayoutState,
@@ -717,7 +718,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(function 
         animatedContentGestureState.value !== State.ACTIVE &&
         animatedHandleGestureState.value !== State.ACTIVE
       ) {
-        // TODO: My update:
+        // My update:
         isInTemporaryPosition.value = false;
         // return the previously active detent position when available,
         // otherwise fall back to the first detent
@@ -1415,8 +1416,9 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(function 
         height === 0
           ? 0
           : $modal
-          ? Math.abs(height - Math.abs(bottomInset - containerOffset.bottom))
-          : Math.abs(height - containerOffset.bottom);
+          ? // My updates:
+            Math.abs(height - Math.abs(bottomInset - containerOffset.bottom + keyboardOffset))
+          : Math.abs(height - containerOffset.bottom + keyboardOffset);
 
       if (__DEV__) {
         runOnJS(print)({
@@ -1486,6 +1488,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(function 
       animatedKeyboardState,
       animatedLayoutState,
       getEvaluatedPosition,
+      keyboardOffset, // My
     ]
   );
 
